@@ -1,7 +1,9 @@
 # Rust Resources
 
+A curated collection of Rust programming language resources, including tools, frameworks, news, and learning materials for systems programming.
 
 ## Tools & Frameworks
+
 
 - [Pyrefly And Ty Two New Rust Powered Python Type Checking Tools Compared](https://www.infoworld.com/article/4005961/pyrefly-and-ty-two-new-rust-powered-python-type-checking-tools-compared.html)
 
