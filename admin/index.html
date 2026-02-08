@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>0x3d Hub - Admin Dashboard</title>
+    <link rel="icon" type="image/png" href="../img/logo.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/easymde/dist/easymde.min.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+</head>
+
+<body>
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <img src="../img/logo.png" alt="Logo" class="sidebar-logo">
+            <span class="sidebar-title">0x3d<span>Hub</span></span>
+        </div>
+
+        <nav class="sidebar-nav">
+            <a href="#" class="nav-item active" data-panel="dashboard">
+                <span class="nav-icon">📊</span>
+                <span class="nav-label">Dashboard</span>
+            </a>
+            <a href="#" class="nav-item" data-panel="posts">
+                <span class="nav-icon">📝</span>
+                <span class="nav-label">Posts</span>
+            </a>
+            <a href="#" class="nav-item" data-panel="languages">
+                <span class="nav-icon">📚</span>
+                <span class="nav-label">Languages</span>
+            </a>
+            <a href="#" class="nav-item" data-panel="resources">
+                <span class="nav-icon">🔧</span>
+                <span class="nav-label">Resources</span>
+            </a>
+            <a href="#" class="nav-item" data-panel="media">
+                <span class="nav-icon">🖼️</span>
+                <span class="nav-label">Media</span>
+            </a>
+            <a href="#" class="nav-item" data-panel="navigation">
+                <span class="nav-icon">🔗</span>
+                <span class="nav-label">Navigation</span>
+            </a>
+            <a href="#" class="nav-item" data-panel="settings">
+                <span class="nav-icon">⚙️</span>
+                <span class="nav-label">Settings</span>
+            </a>
+            <a href="#" class="nav-item" data-panel="help">
+                <span class="nav-icon">❓</span>
+                <span class="nav-label">Help</span>
+            </a>
+        </nav>
+
+        <div class="sidebar-footer">
+            <a href="#" class="nav-item" onclick="connectLocalFolder()">
+                <span class="nav-icon">📂</span>
+                <span class="nav-label" id="connection-label">Connect Folder</span>
+                <span id="folder-status" class="status-dot"></span>
+            </a>
+            <div style="padding: 0.5rem 1rem; color: #8b949e; font-size: 0.75rem; text-align: center; background: #0d1117; border-top: 1px solid #30363d;"
+                id="folder-name-display">
+                Status: Not Connected
+            </div>
+            <a href="../index.html" class="nav-item">
+                <span class="nav-icon">🌐</span>
+                <span class="nav-label">View Site</span>
+            </a>
+        </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+        <header class="top-bar">
+            <h1 id="panel-title">Dashboard</h1>
+            <div class="top-bar-actions">
+                <button class="btn btn-secondary" id="export-all-btn">Export All Data</button>
+            </div>
+        </header>
+
+        <!-- Dashboard Panel -->
+        <section class="panel active" id="panel-dashboard">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <span class="stat-icon">📝</span>
+                    <div class="stat-info">
+                        <span class="stat-value" id="stat-posts">0</span>
+                        <span class="stat-label">Blog Posts</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-icon">📚</span>
+                    <div class="stat-info">
+                        <span class="stat-value" id="stat-languages">0</span>
+                        <span class="stat-label">Language Hubs</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-icon">🔧</span>
+                    <div class="stat-info">
+                        <span class="stat-value" id="stat-resources">0</span>
+                        <span class="stat-label">Resource Types</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-icon">🔗</span>
+                    <div class="stat-info">
+                        <span class="stat-value" id="stat-nav">0</span>
+                        <span class="stat-label">Nav Items</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="quick-actions">
+                <h2>Quick Actions</h2>
+                <div class="action-grid">
+                    <button class="action-card" onclick="showPanel('posts')">
+                        <span class="action-icon">➕</span>
+                        <span>New Post</span>
+                    </button>
+                    <button class="action-card" onclick="showPanel('languages')">
+                        <span class="action-icon">🆕</span>
+                        <span>Add Language</span>
+                    </button>
+                    <button class="action-card" onclick="showPanel('media')">
+                        <span class="action-icon">📤</span>
+                        <span>Upload Media</span>
+                    </button>
+                    <button class="action-card" onclick="showPanel('navigation')">
+                        <span class="action-icon">🔧</span>
+                        <span>Edit Nav</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Help Panel -->
+        <section class="panel" id="panel-help">
+            <div class="panel-header">
+                <h2>How to Use This Dashboard</h2>
+            </div>
+            <div class="help-content">
+                <h3>This is a LOCAL editor for your STATIC website.</h3>
+                <p>This dashboard allows you to edit the content of your website directly on your computer. It is not
+                    connected to your live, public website. To make your changes appear online, you must deploy them
+                    (e.g., using 'git push').</p>
+
+                <h3>Core Workflow:</h3>
+                <ol>
+                    <li>
+                        <strong>Connect to Folder:</strong> Click the "Connect Folder" button in the sidebar.
+                        <strong>You MUST select the project's ROOT folder</strong> (the one containing `index.html`,
+                        `admin/`, and `content/`). The status indicator will turn green and show the folder name when
+                        connected.
+                    </li>
+                    <li>
+                        <strong>Edit Content:</strong> Navigate to a section like "Posts" or "Languages". Click "New
+                        Post" or "Edit" to make your changes.
+                    </li>
+                    <li>
+                        <strong>Save Your Changes:</strong> Click the "Save" button in the editor. This will write the
+                        changes directly to the JSON and Markdown files in your local project folder.
+                    </li>
+                    <li>
+                        <strong>(IMPORTANT) Deploy Your Site:</strong> The changes are only on your local computer. You
+                        need to use your normal deployment process (like `git add .`, `git commit`, and `git push`) to
+                        update your public website.
+                    </li>
+                </ol>
+
+                <h3>Common Issues:</h3>
+                <ul>
+                    <li><strong>"My changes aren't on the website!":</strong> You must complete Step 4 (Deploy) for
+                        changes to appear online.</li>
+                    <li><strong>Saving doesn't work:</strong> Make sure you are using a compatible browser (Chrome or
+                        Edge are recommended). Brave Browser's "Shields" may block file saving.</li>
+                    <li><strong>"No new blog upload option":</strong> The button is on the "Posts" panel, labelled "+
+                        New Post".</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Posts Panel -->
+        <section class="panel" id="panel-posts">
+            <div class="panel-header">
+                <h2>Blog Posts</h2>
+                <button class="btn btn-primary" onclick="openPostEditor()">+ New Post</button>
+            </div>
+
+            <div class="posts-list" id="posts-list">
+                <!-- Posts loaded dynamically -->
+            </div>
+
+            <!-- Post Editor Modal -->
+            <div class="modal" id="post-editor-modal">
+                <div class="modal-content modal-large">
+                    <div class="modal-header">
+                        <h3 id="post-editor-title">New Post</h3>
+                        <button class="modal-close" onclick="closeModal('post-editor-modal')">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-row">
+                            <div class="form-group flex-2">
+                                <label>Title</label>
+                                <input type="text" id="post-title" placeholder="Enter post title">
+                            </div>
+                            <div class="form-group">
+                                <label>Category</label>
+                                <select id="post-category">
+                                    <option value="Tutorial">Tutorial</option>
+                                    <option value="Guide">Guide</option>
+                                    <option value="News">News</option>
+                                    <option value="Editorial">Editorial</option>
+                                    <option value="Announcement">Announcement</option>
+                                    <option value="Sponsored">Sponsored</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Date</label>
+                                <input type="date" id="post-date">
+                            </div>
+                            <div class="form-group">
+                                <label>Reading Time</label>
+                                <input type="text" id="post-reading-time" placeholder="e.g., 5 min read">
+                            </div>
+                            <div class="form-group">
+                                <label>Featured</label>
+                                <input type="checkbox" id="post-featured">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Author Name</label>
+                                <input type="text" id="post-author" placeholder="Author name" value="0x3d Team">
+                            </div>
+                            <div class="form-group">
+                                <label>Banner Image</label>
+                                <input type="text" id="post-banner" placeholder="../img/banner.png">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Snippet (Short Description)</label>
+                            <textarea id="post-snippet" rows="2" placeholder="Brief description for preview"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Content (Markdown)</label>
+                            <textarea id="post-content" rows="15"></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" onclick="closeModal('post-editor-modal')">Cancel</button>
+                        <button class="btn btn-primary" onclick="savePost()">Save Post</button>
+                        <button class="btn btn-success" onclick="downloadPost()">Download .md</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Languages Panel -->
+        <section class="panel" id="panel-languages">
+            <div class="panel-header">
+                <h2>Language Hubs</h2>
+                <button class="btn btn-primary" onclick="openAddLanguageModal()">+ Add Language</button>
+            </div>
+
+            <div class="language-tabs">
+                <button class="lang-tab active" data-lang="nim">Nim</button>
+                <button class="lang-tab" data-lang="python">Python</button>
+                <button class="lang-tab" data-lang="js">JavaScript</button>
+            </div>
+
+            <div class="language-content" id="language-content">
+                <!-- Language sections loaded dynamically -->
+            </div>
+
+            <!-- Add Language Modal -->
+            <div class="modal" id="add-language-modal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3>Add New Language Hub</h3>
+                        <button class="modal-close" onclick="closeModal('add-language-modal')">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label>Language Name</label>
+                            <input type="text" id="new-lang-name" placeholder="e.g., Rust, Go, Ruby">
+                        </div>
+                        <div class="form-group">
+                            <label>Description</label>
+                            <textarea id="new-lang-desc" rows="3"
+                                placeholder="Brief description of this language hub"></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" onclick="closeModal('add-language-modal')">Cancel</button>
+                        <button class="btn btn-primary" onclick="createLanguageHub()">Create Hub</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section Editor Modal -->
+            <div class="modal" id="section-editor-modal">
+                <div class="modal-content modal-large">
+                    <div class="modal-header">
+                        <h3 id="section-editor-title">Edit Section</h3>
+                        <button class="modal-close" onclick="closeModal('section-editor-modal')">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label>Section Name</label>
+                            <input type="text" id="section-name" placeholder="e.g., Web Frameworks">
+                        </div>
+                        <div class="form-group">
+                            <label>Items</label>
+                            <div id="section-items-list">
+                                <!-- Items added dynamically -->
+                            </div>
+                            <button class="btn btn-secondary btn-sm" onclick="addSectionItem()">+ Add Item</button>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" onclick="closeModal('section-editor-modal')">Cancel</button>
+                        <button class="btn btn-primary" onclick="saveSection()">Save Section</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Resources Panel -->
+        <section class="panel" id="panel-resources">
+            <div class="panel-header">
+                <h2>Resources</h2>
+                <button class="btn btn-primary" onclick="openAddResourceModal()">+ Add Resource Type</button>
+            </div>
+
+            <div class="resource-tabs">
+                <button class="res-tab active" data-res="cheatsheets">Cheatsheets</button>
+                <button class="res-tab" data-res="apis">Public APIs</button>
+                <button class="res-tab" data-res="security">Security Tools</button>
+                <button class="res-tab" data-res="snippets">Code Snippets</button>
+                <button class="res-tab" data-res="ai-ml">AI & ML</button>
+                <button class="res-tab" data-res="cybersecurity">Cybersecurity</button>
+                <button class="res-tab" data-res="design">Design</button>
+                <button class="res-tab" data-res="learning">Learning</button>
+                <button class="res-tab" data-res="devops">DevOps</button>
+                <button class="res-tab" data-res="linux">Linux</button>
+                <button class="res-tab" data-res="other">Other</button>
+            </div>
+
+            <div class="resource-content" id="resource-content">
+                <!-- Resource items loaded dynamically -->
+            </div>
+
+            <!-- Add Resource Type Modal -->
+            <div class="modal" id="add-resource-modal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3>Add New Resource Type</h3>
+                        <button class="modal-close" onclick="closeModal('add-resource-modal')">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label>Resource Name</label>
+                            <input type="text" id="new-res-name" placeholder="e.g., Tutorials, Courses">
+                        </div>
+                        <div class="form-group">
+                            <label>Data Structure</label>
+                            <select id="new-res-type">
+                                <option value="flat">Flat List</option>
+                                <option value="category">Category-based</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" onclick="closeModal('add-resource-modal')">Cancel</button>
+                        <button class="btn btn-primary" onclick="createResourceType()">Create Resource</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Resource Item Editor Modal -->
+            <div class="modal" id="resource-item-modal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 id="resource-item-title">Add Item</h3>
+                        <button class="modal-close" onclick="closeModal('resource-item-modal')">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label>Name / Label</label>
+                            <input type="text" id="res-item-name" placeholder="Item name">
+                        </div>
+                        <div class="form-group">
+                            <label>URL</label>
+                            <input type="text" id="res-item-url" placeholder="https://...">
+                        </div>
+                        <div class="form-group">
+                            <label>Description</label>
+                            <textarea id="res-item-desc" rows="2" placeholder="Brief description"></textarea>
+                        </div>
+                        <div class="form-group" id="res-item-badges-group">
+                            <label>Badges (comma-separated)</label>
+                            <input type="text" id="res-item-badges" placeholder="e.g., OSINT, Free, Open Source">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" onclick="closeModal('resource-item-modal')">Cancel</button>
+                        <button class="btn btn-primary" onclick="saveResourceItem()">Save Item</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Media Panel -->
+        <section class="panel" id="panel-media">
+            <div class="panel-header">
+                <h2>Media Library</h2>
+            </div>
+
+            <div class="upload-zone" id="upload-zone">
+                <div class="upload-icon">📤</div>
+                <p>Drag & drop files here</p>
+                <p class="upload-hint">or click to browse</p>
+                <input type="file" id="file-input" multiple accept="image/*,audio/*,video/*" hidden>
+            </div>
+
+            <div class="upload-preview" id="upload-preview">
+                <!-- Preview items appear here -->
+            </div>
+
+            <div class="media-grid" id="media-grid">
+                <h3>Existing Media</h3>
+                <div class="media-list" id="media-list">
+                    <!-- Existing media items loaded here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Navigation Panel -->
+        <section class="panel" id="panel-navigation">
+            <div class="panel-header">
+                <h2>Navigation Manager</h2>
+                <button class="btn btn-primary" onclick="openAddNavModal()">+ Add Link</button>
+            </div>
+
+            <p class="panel-hint">Manage the top navigation bar links. These are separate from resource page blocks.</p>
+
+            <div class="nav-list" id="nav-list">
+                <!-- Navigation items loaded dynamically -->
+            </div>
+
+            <div class="nav-actions">
+                <button class="btn btn-success" onclick="saveNavigation()">Save Navigation</button>
+                <button class="btn btn-secondary" onclick="downloadConfig()">Download config.json</button>
+            </div>
+
+            <!-- Add Nav Link Modal -->
+            <div class="modal" id="add-nav-modal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3>Add Navigation Link</h3>
+                        <button class="modal-close" onclick="closeModal('add-nav-modal')">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label>Label</label>
+                            <input type="text" id="nav-label" placeholder="e.g., Blog, Resources">
+                        </div>
+                        <div class="form-group">
+                            <label>URL</label>
+                            <input type="text" id="nav-url" placeholder="e.g., /blog/index.html">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" onclick="closeModal('add-nav-modal')">Cancel</button>
+                        <button class="btn btn-primary" onclick="addNavItem()">Add Link</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Settings Panel -->
+        <section class="panel" id="panel-settings">
+            <div class="panel-header">
+                <h2>Settings & Connections</h2>
+            </div>
+
+            <div class="settings-sections">
+                <!-- Social Links -->
+                <div class="settings-section">
+                    <h3>Social Connections</h3>
+                    <div class="form-group">
+                        <label>GitHub URL</label>
+                        <input type="text" id="social-github" placeholder="https://github.com/username">
+                    </div>
+                    <div class="form-group">
+                        <label>Discord URL</label>
+                        <input type="text" id="social-discord" placeholder="https://discord.gg/invite">
+                    </div>
+                    <div class="form-group">
+                        <label>Twitter/X URL</label>
+                        <input type="text" id="social-twitter" placeholder="https://x.com/username">
+                    </div>
+                    <div class="form-group">
+                        <label>YouTube URL</label>
+                        <input type="text" id="social-youtube" placeholder="https://youtube.com/@channel">
+                    </div>
+                </div>
+
+                <!-- Branding -->
+                <div class="settings-section">
+                    <h3>Site Branding</h3>
+                    <div class="form-group">
+                        <label>Site Name</label>
+                        <input type="text" id="site-name" placeholder="0x3d Hub">
+                    </div>
+                    <div class="form-group">
+                        <label>Tagline</label>
+                        <input type="text" id="site-tagline" placeholder="Nexus of Knowledge">
+                    </div>
+                    <div class="form-group">
+                        <label>Logo Path</label>
+                        <input type="text" id="site-logo" placeholder="img/logo.png">
+                    </div>
+                </div>
+
+                <!-- SEO/Meta -->
+                <div class="settings-section">
+                    <h3>SEO & Meta</h3>
+                    <div class="form-group">
+                        <label>Meta Description</label>
+                        <textarea id="meta-description" rows="3"
+                            placeholder="Site description for search engines"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Meta Keywords</label>
+                        <input type="text" id="meta-keywords" placeholder="programming, tutorials, resources">
+                    </div>
+                </div>
+            </div>
+
+            <div class="settings-actions">
+                <button class="btn btn-success" onclick="saveSettings()">Save Settings</button>
+                <button class="btn btn-secondary" onclick="downloadConfig()">Download config.json</button>
+            </div>
+        </section>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/easymde/dist/easymde.min.js"></script>
+    <script src="js/dashboard.js?v=2"></script>
+</body>
+
+</html>

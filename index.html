@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>0x3d Hub - Premium Technical Knowledge</title>
+	<link rel="stylesheet" href="css/styles.css">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=JetBrains+Mono&display=swap"
+		rel="stylesheet">
+	<style>
+		:root {
+			--home-accent: #ff007f;
+			--home-accent-alt: #00e5ff;
+		}
+
+		.home-hero {
+			min-height: 80vh;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			padding: 2rem;
+			position: relative;
+			overflow: hidden;
+			background: radial-gradient(circle at top right, rgba(255, 0, 127, 0.1), transparent),
+				radial-gradient(circle at bottom left, rgba(0, 229, 255, 0.1), transparent);
+		}
+
+		.home-hero::before {
+			content: '';
+			position: absolute;
+			top: 20%;
+			left: 50%;
+			transform: translateX(-50%);
+			width: 800px;
+			height: 400px;
+			background: linear-gradient(45deg, var(--home-accent), var(--home-accent-alt));
+			filter: blur(150px);
+			opacity: 0.1;
+			border-radius: 50%;
+			z-index: -1;
+		}
+
+		.hero-content {
+			text-align: center;
+			max-width: 900px;
+		}
+
+		.hero-tag {
+			display: inline-block;
+			padding: 0.5rem 1.5rem;
+			background: rgba(255, 255, 255, 0.05);
+			border: 1px solid rgba(255, 255, 255, 0.1);
+			border-radius: 100px;
+			font-size: 0.8rem;
+			font-weight: 700;
+			letter-spacing: 2px;
+			color: var(--home-accent-alt);
+			margin-bottom: 2rem;
+			text-transform: uppercase;
+		}
+
+		.hero-h1 {
+			font-size: clamp(3rem, 8vw, 6rem);
+			font-weight: 800;
+			line-height: 1;
+			margin-bottom: 1.5rem;
+			background: linear-gradient(to bottom, #fff, #999);
+			-webkit-background-clip: text;
+			background-clip: text;
+			-webkit-text-fill-color: transparent;
+		}
+
+		.hero-p {
+			font-size: 1.2rem;
+			color: var(--text-muted);
+			margin-bottom: 3rem;
+			max-width: 600px;
+			margin-left: auto;
+			margin-right: auto;
+		}
+
+		.home-hub-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+			gap: 2rem;
+			padding: 4rem 2rem;
+		}
+
+		.home-hub-card {
+			padding: 2.5rem;
+			border-radius: 24px;
+			background: rgba(255, 255, 255, 0.02);
+			border: 1px solid var(--glass-border);
+			transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+			text-decoration: none;
+			color: white;
+			position: relative;
+			overflow: hidden;
+		}
+
+		.home-hub-card:hover {
+			transform: translateY(-10px);
+			background: rgba(255, 255, 255, 0.05);
+			border-color: rgba(255, 255, 255, 0.2);
+			box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+		}
+
+		.home-hub-card::after {
+			content: '';
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.05), transparent);
+			transform: translateX(-100%);
+			transition: 0.6s;
+		}
+
+		.home-hub-card:hover::after {
+			transform: translateX(100%);
+		}
+
+		.home-hub-card h3 {
+			font-size: 1.8rem;
+			margin-bottom: 1rem;
+			color: var(--accent-color);
+		}
+
+		.home-hub-card p {
+			color: var(--text-muted);
+			font-size: 0.95rem;
+			line-height: 1.6;
+		}
+
+		.home-hub-card .icon {
+			font-size: 2.5rem;
+			margin-bottom: 1.5rem;
+			display: block;
+		}
+
+		.hub-divider {
+			text-align: center;
+			margin: 3rem 0 2rem;
+			position: relative;
+		}
+
+		.hub-divider::before {
+			content: '';
+			position: absolute;
+			top: 50%;
+			left: 0;
+			right: 0;
+			height: 1px;
+			background: linear-gradient(to right, transparent, var(--glass-border), transparent);
+		}
+
+		.hub-divider span {
+			background: var(--bg-color);
+			padding: 0 2rem;
+			position: relative;
+			font-size: 0.8rem;
+			font-weight: 700;
+			letter-spacing: 2px;
+			color: var(--text-muted);
+			text-transform: uppercase;
+		}
+	</style>
+</head>
+
+<body>
+	<header>
+		<!-- Dynamic Header Loads Here -->
+	</header>
+
+	<main>
+		<section class="home-hero">
+			<div class="hero-content">
+				<div class="hero-tag">Nexus of Knowledge</div>
+				<h1 class="hero-h1">0x3d Hub</h1>
+				<p class="hero-p">Curating the finest technical resources, language mastery, and digital frontiers in a
+					unified premium dashboard.</p>
+				<div style="display: flex; gap: 1rem; justify-content: center;">
+					<a href="blog/index.html" class="btn action-btn">Explore Blog</a>
+					<a href="resources/index.html" class="btn"
+						style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);">Browse
+						Tools</a>
+				</div>
+			</div>
+		</section>
+
+		<section class="container">
+			<div class="hub-divider">
+				<span>Core Ecosystems</span>
+			</div>
+			<div class="home-hub-grid">
+				<a href="nim/index.html" class="home-hub-card">
+					<span class="icon">👑</span>
+					<h3>Nim Hub</h3>
+					<p>Restored ecosystem of Nim tools, libraries, and advanced development patterns.</p>
+				</a>
+				<a href="python/index.html" class="home-hub-card">
+					<span class="icon">🐍</span>
+					<h3>Python Nexus</h3>
+					<p>Automation scripts, forensic tools, and AI-driven development workflows.</p>
+				</a>
+				<a href="javascript/index.html" class="home-hub-card">
+					<span class="icon">⚛️</span>
+					<h3>JS Terminal</h3>
+					<p>Modern frontend frameworks, security research, and dynamic web architectures.</p>
+				</a>
+				<a href="c-cpp/index.html" class="home-hub-card">
+					<span class="icon">⚙️</span>
+					<h3>C/C++ Core</h3>
+					<p>Systems programming, optimization, and high-performance engineering tools.</p>
+				</a>
+				<a href="golang/index.html" class="home-hub-card">
+					<span class="icon">🐹</span>
+					<h3>Go Forge</h3>
+					<p>Cloud-native architectures, microservices, and efficient backend systems.</p>
+				</a>
+				<a href="rust/index.html" class="home-hub-card">
+					<span class="icon">🦀</span>
+					<h3>Rust Vault</h3>
+					<p>Memory safety, concurrent systems, and the future of safe low-level coding.</p>
+				</a>
+			</div>
+
+			<div class="hub-divider">
+				<span>Specialized Resource Centers</span>
+			</div>
+			<div class="home-hub-grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
+				<a href="resources/ai-ml.html" class="home-hub-card" style="padding: 1.5rem;">
+					<span class="icon" style="font-size: 1.5rem;">🤖</span>
+					<h3>AI & ML</h3>
+				</a>
+				<a href="resources/cybersecurity.html" class="home-hub-card" style="padding: 1.5rem;">
+					<span class="icon" style="font-size: 1.5rem;">🛡️</span>
+					<h3>Cybersecurity</h3>
+				</a>
+				<a href="resources/design.html" class="home-hub-card" style="padding: 1.5rem;">
+					<span class="icon" style="font-size: 1.5rem;">🎨</span>
+					<h3>Design</h3>
+				</a>
+				<a href="resources/learning.html" class="home-hub-card" style="padding: 1.5rem;">
+					<span class="icon" style="font-size: 1.5rem;">🎓</span>
+					<h3>Learning</h3>
+				</a>
+				<a href="resources/devops.html" class="home-hub-card" style="padding: 1.5rem;">
+					<span class="icon" style="font-size: 1.5rem;">🚀</span>
+					<h3>DevOps</h3>
+				</a>
+				<a href="resources/linux.html" class="home-hub-card" style="padding: 1.5rem;">
+					<span class="icon" style="font-size: 1.5rem;">🐧</span>
+					<h3>Linux</h3>
+				</a>
+			</div>
+
+			<div class="hub-divider">
+				<span>Knowledge Archives</span>
+			</div>
+			<div class="home-hub-grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
+				<a href="resources/cheatsheets.html" class="home-hub-card" style="padding: 1.5rem;">
+					<h3>📚 Cheatsheets</h3>
+				</a>
+				<a href="resources/public-apis.html" class="home-hub-card" style="padding: 1.5rem;">
+					<h3>🌐 Public APIs</h3>
+				</a>
+				<a href="resources/security-tools.html" class="home-hub-card" style="padding: 1.5rem;">
+					<h3>🛠️ Sec Tools</h3>
+				</a>
+				<a href="resources/code-snippets.html" class="home-hub-card" style="padding: 1.5rem;">
+					<h3>🔍 Snippets</h3>
+				</a>
+				<a href="resources/other.html" class="home-hub-card" style="padding: 1.5rem;">
+					<h3>📁 Master Vault</h3>
+				</a>
+			</div>
+		</section>
+	</main>
+
+	<footer class="bottom-bar">
+		<div class="container footer-grid">
+			<div class="footer-brand">
+				<div class="logo">0x3d <span>Hub</span></div>
+				<p>Curating advanced knowledge for the modern web.</p>
+			</div>
+			<div class="footer-links">
+				<h3>Connect</h3>
+				<ul id="social-links">
+					<li><a href="#">GitHub</a></li>
+					<li><a href="#">Discord</a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="footer-bottom container">
+			<p>&copy; 2026 0x3d Hub. Powered by Agentic Intelligence.</p>
+		</div>
+	</footer>
+
+	<script src="js/markdown-loader.js"></script>
+	<script>
+		document.addEventListener('DOMContentLoaded', () => {
+			MarkdownLoader.loadSiteHeader();
+			MarkdownLoader.loadFooterSocial();
+		});
+	</script>
+</body>
+
+</html>

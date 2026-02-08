@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Javascript Developer Resources - 0x3d Hub</title>
+  <link rel="icon" type="image/png" href="../img/logo.png">
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <header>
+    <!-- Standard Header Loads Here -->
+  </header>
+
+  <main class="container" id="language-content">
+    <!-- Dynamic Content Loads Here -->
+  </main>
+
+  <footer class="bottom-bar">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <div class="logo">0x3d <span>Hub</span></div>
+        <p>Curating advanced knowledge for the modern web.</p>
+      </div>
+      <div class="footer-links">
+        <h3>Connect</h3>
+        <ul id="social-links">
+          <!-- Social links populated dynamically -->
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 0x3d Hub. Powered by Agentic Intelligence.</p>
+    </div>
+  </footer>
+
+  <script src="../js/markdown-loader.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      MarkdownLoader.loadSiteHeader();
+      MarkdownLoader.loadLanguagePage('js', 'language-content');
+      MarkdownLoader.loadFooterSocial(); // Added dynamic footer loading
+    });
+  </script>
+</body>
+
+</html>

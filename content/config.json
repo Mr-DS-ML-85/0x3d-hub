@@ -1,0 +1,123 @@
+{
+    "site": {
+        "name": "0x3d Hub",
+        "description": "Aggregating information and curating technical expertise."
+    },
+    "navigation": [
+        {
+            "label": "Home",
+            "url": "/index.html"
+        },
+        {
+            "label": "Blog",
+            "url": "/blog/index.html"
+        },
+        {
+            "label": "Resources",
+            "url": "/resources/index.html"
+        },
+        {
+            "label": "Nim",
+            "url": "/nim/index.html"
+        },
+        {
+            "label": "Python",
+            "url": "/python/index.html"
+        },
+        {
+            "label": "Javascript",
+            "url": "/javascript/index.html"
+        },
+        {
+            "label": "C/C++",
+            "url": "/c-cpp/index.html"
+        },
+        {
+            "label": "Go",
+            "url": "/golang/index.html"
+        },
+        {
+            "label": "Rust",
+            "url": "/rust/index.html"
+        }
+    ],
+    "resources": [
+        {
+            "label": "Cheatsheets",
+            "url": "/resources/cheatsheets.html",
+            "icon": "📚"
+        },
+        {
+            "label": "Public APIs",
+            "url": "/resources/public-apis.html",
+            "icon": "🌐"
+        },
+        {
+            "label": "Security tools",
+            "url": "/resources/security-tools.html",
+            "icon": "🛡️"
+        },
+        {
+            "label": "Code snippets",
+            "url": "/resources/code-snippets.html",
+            "icon": "🔍"
+        },
+        {
+            "label": "AI & ML",
+            "url": "/resources/ai-ml.html",
+            "icon": "🤖"
+        },
+        {
+            "label": "Cybersecurity",
+            "url": "/resources/cybersecurity.html",
+            "icon": "🛡️"
+        },
+        {
+            "label": "Design",
+            "url": "/resources/design.html",
+            "icon": "🎨"
+        },
+        {
+            "label": "Learning",
+            "url": "/resources/learning.html",
+            "icon": "🎓"
+        },
+        {
+            "label": "DevOps",
+            "url": "/resources/devops.html",
+            "icon": "🚀"
+        },
+        {
+            "label": "Linux",
+            "url": "/resources/linux.html",
+            "icon": "🐧"
+        },
+        {
+            "label": "Other Resources",
+            "url": "/resources/other.html",
+            "icon": "📁"
+        }
+    ],
+    "social": [
+        {
+            "label": "GitHub",
+            "url": "https://github.com",
+            "icon": "github"
+        },
+        {
+            "label": "Discord",
+            "url": "https://discord.com",
+            "icon": "discord"
+        },
+        {
+            "label": "Twitter",
+            "url": "https://twitter.com",
+            "icon": "twitter"
+        },
+        {
+            "label": "Email",
+            "url": "mailto:admin@0x3d.site",
+            "icon": "email"
+        }
+    ]
+}

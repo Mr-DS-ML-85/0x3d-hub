@@ -1,0 +1,1 @@
+console.log("Analytics disabled for local deployment");

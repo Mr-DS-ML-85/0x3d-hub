@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Security Tools - 0x3d.site</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono&display=swap"
+        rel="stylesheet">
+    <style>
+        .tool-card {
+            margin-bottom: 1.5rem;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .tool-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .tool-name {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--accent-color);
+            text-decoration: none;
+        }
+
+        .tool-meta {
+            display: flex;
+            gap: 0.5rem;
+            font-size: 0.8rem;
+        }
+
+        .badge {
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #aaa;
+        }
+
+        .badge.success {
+            background: rgba(0, 255, 128, 0.1);
+            color: #00ff80;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <!-- Standard Header Loads Here -->
+    </header>
+
+    <main class="container">
+        <h1>Security & Pentesting Tools</h1>
+        <p>A curated list of APIs and resources for security professionals and researchers.</p>
+
+        <div class="tool-list" id="securityList">
+            <!-- Loaded dynamically from content/db/security.json -->
+        </div>
+    </main>
+
+    <script src="../js/markdown-loader.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            MarkdownLoader.loadSiteHeader();
+            MarkdownLoader.loadDynamicResources('security');
+        });
+    </script>
+
+    <footer class="bottom-bar">
+        <div class="container footer-grid">
+            <div class="footer-brand">
+                <div class="logo">0x3d <span>Hub</span></div>
+                <p>Aggregating information and curating knowledge for the digital age.</p>
+            </div>
+            <div class="footer-links">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="../blog/index.html">Blog</a></li>
+                    <li><a href="../nim/index.html">Nim</a></li>
+                    <li><a href="../python/index.html">Python</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h3>Resources</h3>
+                <ul>
+                    <li><a href="cheatsheets.html">Cheatsheets</a></li>
+                    <li><a href="public-apis.html">Public APIs</a></li>
+                    <li><a href="security-tools.html">Security tools</a></li>
+                    <li><a href="code-snippets.html">Code snippets</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom container">
+            <p>&copy; 2026 0x3d.site. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+
+</html>

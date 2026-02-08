@@ -1,0 +1,58 @@
+[
+    {
+        "title": "Welcome to the New 0x3d Hub Portal!",
+        "date": "2026-02-07",
+        "banner": "../img/logo.png",
+        "snippet": "We've overhauled our content delivery system to bring you a more immersive experience with rich media support and authoritative technical insights.",
+        "file": "featured.md",
+        "featured": true,
+        "category": "Announcement",
+        "author": {
+            "name": "0x3d Team",
+            "avatar": "../img/logo.png"
+        },
+        "readingTime": "2 min read"
+    },
+    {
+        "title": "Announcing: Sponsored Spotlight",
+        "date": "2026-02-07",
+        "banner": "../img/logo.png",
+        "snippet": "Exploring premium technical services and integrations that empower the modern developer ecosystem.",
+        "file": "Sponsored.md",
+        "featured": true,
+        "category": "Sponsored",
+        "author": {
+            "name": "Partner",
+            "avatar": "../img/logo.png"
+        },
+        "readingTime": "4 min read"
+    },
+    {
+        "title": "The Power of Modern Nim",
+        "date": "2026-02-06",
+        "banner": "../img/logo.png",
+        "snippet": "Exploring why Nim is becoming the preferred choice for systems programmers who value both speed and developer experience.",
+        "file": "nim-power.md",
+        "category": "Tutorial",
+        "author": {
+            "name": "0x3d Team",
+            "avatar": "../img/logo.png"
+        },
+        "readingTime": "8 min read"
+    },
+    {
+        "title": "Python Automation in 2026",
+        "date": "2026-02-05",
+        "banner": "../img/logo.png",
+        "snippet": "A guide to the latest libraries and techniques for automating everything from local workflows to cloud infrastructure.",
+        "file": "python-automation.md",
+        "category": "Guide",
+        "author": {
+            "name": "0x3d Team",
+            "avatar": "../img/logo.png"
+        },
+        "readingTime": "6 min read"
+    }
+   
+    
+]

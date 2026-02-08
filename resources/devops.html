@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevOps Resources - 0x3d Hub</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <header></header>
+    <main class="container">
+        <section class="hero" style="padding: 5rem 2rem 3rem;">
+            <h1>DevOps & Cloud</h1>
+            <p>Infrastructure as code, Docker, Kubernetes, and seamless automation pipelines.</p>
+        </section>
+        <div id="devopsList"></div>
+    </main>
+    <footer class="bottom-bar">
+        <div class="container footer-grid">
+            <div class="footer-brand">
+                <div class="logo">0x3d <span>Hub</span></div>
+                <p>Curating advanced knowledge for the modern web.</p>
+            </div>
+            <div class="footer-links">
+                <h3>Connect</h3>
+                <ul id="social-links"></ul>
+            </div>
+        </div>
+        <div class="footer-bottom container">
+            <p>&copy; 2026 0x3d Hub. Powered by Agentic Intelligence.</p>
+        </div>
+    </footer>
+    <script src="../js/markdown-loader.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            MarkdownLoader.loadSiteHeader();
+            MarkdownLoader.loadDynamicResources('devops');
+            MarkdownLoader.loadFooterSocial();
+        });
+    </script>
+</body>
+
+</html>

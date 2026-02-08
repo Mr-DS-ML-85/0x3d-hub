@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cheatsheet Viewer - 0x3d Hub</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono&display=swap"
+        rel="stylesheet">
+    <style>
+        .post-layout {
+            display: block;
+            /* Simplified for cheatsheets */
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .cheatsheet-content {
+            padding-bottom: 5rem;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <!-- Standard Header Loads Here -->
+    </header>
+
+    <main class="container">
+        <div class="post-layout">
+            <article id="markdown-content" class="cheatsheet-content">
+                <div style="text-align:center; padding: 5rem;">
+                    <div class="loader"></div>
+                    <p>Loading cheatsheet...</p>
+                </div>
+            </article>
+        </div>
+    </main>
+
+    <script src="../js/markdown-loader.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            await MarkdownLoader.loadSiteHeader();
+
+            const params = new URLSearchParams(window.location.search);
+            const cheatsheet = params.get('c');
+
+            if (cheatsheet) {
+                const filePath = `../content/cheatsheets/${cheatsheet}.md`;
+                try {
+                    const response = await fetch(filePath);
+                    if (!response.ok) throw new Error('Cheatsheet not found');
+                    const text = await response.text();
+
+                    const target = document.getElementById('markdown-content');
+                    target.innerHTML = MarkdownLoader.render(text);
+
+                    // Update Page Title
+                    const h1 = target.querySelector('h1');
+                    if (h1) {
+                        document.title = `${h1.innerText} - 0x3d Hub`;
+                    }
+                } catch (e) {
+                    document.getElementById('markdown-content').innerHTML = `
+                        <div style="text-align:center; padding: 5rem;">
+                            <h2 style="color:red">Cheatsheet Not Available</h2>
+                            <p>We're currently restoring this resource. Please check back soon.</p>
+                            <a href="cheatsheets.html" class="btn" style="margin-top:2rem">Back to Cheatsheets</a>
+                        </div>
+                    `;
+                }
+            } else {
+                window.location.href = 'cheatsheets.html';
+            }
+        });
+    </script>
+
+    <footer class="bottom-bar">
+        <div class="container footer-bottom">
+            <p>&copy; 2026 0x3d Hub. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+
+</html>

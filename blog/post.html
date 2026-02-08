@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Post - 0x3d Hub</title>
+    <link rel="icon" type="image/png" href="../img/logo.png">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <div class="logo">
+            <img src="../img/logo.png" alt="0x3d Logo">
+            <span>0x3d Hub</span>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../nim/">Nim</a></li>
+                <li><a href="../python/">Python</a></li>
+                <li><a href="../javascript/">Javascript</a></li>
+                <li><a href="index.html" class="active">Blog</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container">
+        <article id="post-content">
+            <p>Loading post...</p>
+        </article>
+
+        <div style="margin-top: 4rem; text-align: center;">
+            <a href="index.html" class="btn">&larr; Back to Blog Hub</a>
+        </div>
+    </main>
+
+    <footer class="bottom-bar">
+        <div class="container footer-grid">
+            <div class="footer-col">
+                <h4>About 0x3d</h4>
+                <p>A curated knowledge hub for technical expertise and programming resources. Offline-first and
+                    privacy-focused.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="../nim/">Nim Resources</a></li>
+                    <li><a href="../python/">Python Guide</a></li>
+                    <li><a href="../javascript/">JS Ecosystem</a></li>
+                    <li><a href="index.html">Technical Blog</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Resources</h4>
+                <ul>
+                    <li><a href="../resources/cheatsheets.html">Cheatsheets</a></li>
+                    <li><a href="../resources/public-apis.html">Public APIs</a></li>
+                    <li><a href="../resources/security-tools.html">Security tools</a></li>
+                    <li><a href="../resources/code-snippets.html">Code snippets</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Connect</h4>
+                <ul>
+                    <li><a href="#">GitHub</a></li>
+                    <li><a href="#">Discord</a></li>
+                    <li><a href="#">Twitter</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 0x3d Hub. Built for the modern technical enthusiast.</p>
+        </div>
+    </footer>
+
+    <script src="../js/markdown-loader.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            MarkdownLoader.loadSiteHeader();
+            MarkdownLoader.loadPost('post-content');
+        });
+    </script>
+</body>
+
+</html>

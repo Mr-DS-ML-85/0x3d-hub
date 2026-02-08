@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cheatsheets - 0x3d Hub</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono&display=swap"
+        rel="stylesheet">
+    <style>
+        .cheatsheet-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .cheatsheet-item {
+            padding: 1rem;
+            text-decoration: none;
+            color: var(--text-color);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.02);
+            transition: all 0.2s ease;
+            text-align: center;
+            font-weight: 500;
+        }
+
+        .cheatsheet-item:hover {
+            background: var(--accent-color);
+            color: white;
+            transform: scale(1.05);
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 1rem;
+            margin-bottom: 2rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            color: white;
+            font-size: 1.1rem;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <!-- Standard Header Loads Here -->
+    </header>
+
+    <main class="container">
+        <h1>Developer Cheatsheets</h1>
+        <p>A collection of quick reference guides for modern developers.</p>
+
+        <input type="text" class="search-box" placeholder="Search cheatsheets..." id="searchInput">
+
+        <div class="cheatsheet-list" id="cheatsheetsList">
+            <!-- Loaded dynamically from content/db/cheatsheets.json -->
+        </div>
+    </main>
+
+    <script src="../js/markdown-loader.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            MarkdownLoader.loadSiteHeader();
+            MarkdownLoader.loadDynamicResources('cheatsheets');
+        });
+
+        document.getElementById('searchInput').addEventListener('input', function (e) {
+            const term = e.target.value.toLowerCase();
+            const items = document.querySelectorAll('.api-item');
+            items.forEach(item => {
+                const text = item.textContent.toLowerCase();
+                item.style.display = text.includes(term) ? 'flex' : 'none';
+            });
+        });
+    </script>
+
+    <footer class="bottom-bar">
+        <!-- Reusing footer from hub -->
+        <div class="container footer-grid">
+            <div class="footer-brand">
+                <div class="logo">0x3d <span>Hub</span></div>
+                <p>Aggregating information and curating knowledge for the digital age.</p>
+            </div>
+            <div class="footer-links">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="../blog/index.html">Blog</a></li>
+                    <li><a href="../nim/index.html">Nim</a></li>
+                    <li><a href="../python/index.html">Python</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h3>Resources</h3>
+                <ul>
+                    <li><a href="cheatsheets.html">Cheatsheets</a></li>
+                    <li><a href="public-apis.html">Public APIs</a></li>
+                    <li><a href="security-tools.html">Security tools</a></li>
+                    <li><a href="code-snippets.html">Code snippets</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom container">
+            <p>&copy; 2026 0x3d Hub. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+
+</html>

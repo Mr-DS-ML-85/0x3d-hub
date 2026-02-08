@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code Snippets - 0x3d.site</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono&display=swap"
+        rel="stylesheet">
+    <style>
+        .snippet-section {
+            margin-bottom: 4rem;
+        }
+
+        .snippet-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .snippet-card {
+            padding: 1.5rem;
+        }
+
+        .snippet-card h3 {
+            color: var(--accent-color);
+            margin-top: 0;
+        }
+
+        pre {
+            background: #111;
+            padding: 1rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            margin-top: 1rem;
+        }
+
+        code {
+            color: #dcdcdc;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <!-- Standard Header Loads Here -->
+    </header>
+
+    <main class="container">
+        <h1>Code Snippets & Highlighting</h1>
+        <p>Essential code fragments and tools for modern web development.</p>
+
+        <div id="snippetsList">
+            <!-- Loaded dynamically from content/db/snippets.json -->
+        </div>
+    </main>
+
+    <script src="../js/markdown-loader.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            MarkdownLoader.loadSiteHeader();
+            MarkdownLoader.loadDynamicResources('snippets');
+        });
+    </script>
+
+    <footer class="bottom-bar">
+        <div class="container footer-grid">
+            <div class="footer-brand">
+                <div class="logo">0x3d <span>Hub</span></div>
+                <p>Aggregating information and curating knowledge for the digital age.</p>
+            </div>
+            <div class="footer-links">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="../blog/index.html">Blog</a></li>
+                    <li><a href="../nim/index.html">Nim</a></li>
+                    <li><a href="../python/index.html">Python</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h3>Resources</h3>
+                <ul>
+                    <li><a href="cheatsheets.html">Cheatsheets</a></li>
+                    <li><a href="public-apis.html">Public APIs</a></li>
+                    <li><a href="security-tools.html">Security tools</a></li>
+                    <li><a href="code-snippets.html">Code snippets</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom container">
+            <p>&copy; 2026 0x3d.site. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+
+</html>

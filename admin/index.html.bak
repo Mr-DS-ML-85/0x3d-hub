@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>0x3d Hub | Admin Portal</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <!-- EasyMDE for premium editing -->
+    <link rel="stylesheet" href="https://unpkg.com/easymde/dist/easymde.min.css">
+    <script src="https://unpkg.com/easymde/dist/easymde.min.js"></script>
+    <style>
+        :root {
+            --portal-bg: #0b0e14;
+            --portal-surface: #161b22;
+            --portal-accent: #3b82f6;
+            --portal-glow: rgba(59, 130, 246, 0.4);
+        }
+
+        body.admin-panel {
+            padding-top: 5rem;
+            color: #e6edf3;
+            background: var(--portal-bg);
+            font-family: 'Inter', -apple-system, sans-serif;
+            line-height: 1.6;
+        }
+
+        .admin-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* XDA Style Cards */
+        .portal-card {
+            background: var(--portal-surface);
+            border: 1px solid #30363d;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            transition: border-color 0.3s ease;
+            position: relative;
+        }
+
+        .portal-card:hover {
+            border-color: var(--portal-accent);
+        }
+
+        .portal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #30363d;
+        }
+
+        .portal-title {
+            font-size: 1.5rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .portal-title span {
+            color: var(--portal-accent);
+        }
+
+        /* Tabs styling */
+        .portal-tabs {
+            display: flex;
+            gap: 8px;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 4px;
+            border-radius: 10px;
+            margin-bottom: 3rem;
+            border: 1px solid #30363d;
+            overflow-x: auto;
+        }
+
+        .tab-trigger {
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            border: none;
+            background: transparent;
+            color: #8b949e;
+            font-weight: 600;
+            font-size: 0.85rem;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.2s;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .tab-trigger:hover {
+            color: #fff;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .tab-trigger.active {
+            color: #fff;
+            background: var(--portal-accent);
+            box-shadow: 0 4px 12px var(--portal-glow);
+        }
+
+        /* Inputs */
+        .portal-input {
+            width: 100%;
+            background: #0d1117;
+            border: 1px solid #30363d;
+            border-radius: 6px;
+            padding: 12px;
+            color: #c9d1d9;
+            font-size: 0.9rem;
+            margin-top: 6px;
+        }
+
+        .portal-input:focus {
+            outline: none;
+            border-color: var(--portal-accent);
+            box-shadow: 0 0 0 3px var(--portal-glow);
+        }
+
+        .field-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .field-label {
+            display: block;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: #8b949e;
+            text-transform: uppercase;
+        }
+
+        /* Buttons */
+        .portal-btn {
+            border: 1px solid #30363d;
+            background: #21262d;
+            color: #c9d1d9;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+        }
+
+        .portal-btn:hover {
+            background: #30363d;
+            border-color: #8b949e;
+        }
+
+        .portal-btn.primary {
+            background: var(--portal-accent);
+            border-color: transparent;
+            color: #fff;
+        }
+
+        .portal-btn.danger {
+            color: #f85149;
+        }
+
+        .portal-btn.danger:hover {
+            background: rgba(248, 81, 73, 0.1);
+        }
+
+        /* Editor Modal */
+        #editorModal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-body {
+            background: var(--portal-surface);
+            width: 90%;
+            max-width: 1000px;
+            height: 80vh;
+            border-radius: 16px;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #30363d;
+        }
+
+        .EasyMDEContainer {
+            flex: 1;
+            overflow: hidden;
+            background: #0d1117;
+            border-radius: 8px;
+            margin-top: 1rem;
+        }
+
+        .editor-preview {
+            background: #0d1117 !important;
+            color: #c9d1d9 !important;
+        }
+    </style>
+</head>
+
+<body class="admin-panel">
+    <header>
+        <!-- Dynamic Header Loads Here -->
+    </header>
+
+    <div class="admin-container">
+        <div class="portal-header">
+            <div>
+                <h1 style="font-size: 2.5rem; margin: 0; font-weight: 900;">0x3d <span>Hub</span> Portal</h1>
+                <p style="color: #8b949e; margin-top: 5px;">Unified Site Management & Content Publishing Pipeline</p>
+            </div>
+            <div style="display: flex; gap: 10px;">
+                <button class="portal-btn primary" onclick="saveAll()">Sync Site Changes</button>
+            </div>
+        </div>
+
+        <div class="portal-tabs">
+            <button class="tab-trigger active" onclick="showTab('navigation')">Core Config</button>
+            <button class="tab-trigger" onclick="showTab('blog')">Technical Blog</button>
+            <button class="tab-trigger" onclick="showTab('languages')">Language Hubs</button>
+            <button class="tab-trigger" onclick="showTab('resources')">Dynamic Resources</button>
+            <button class="tab-trigger" onclick="showTab('social')">Social & Meta</button>
+        </div>
+
+        <!-- Sections -->
+        <div id="navigation" class="tab-content">
+            <div class="portal-card">
+                <div class="portal-title">Header <span>Navigation</span></div>
+                <div id="navigation-list"
+                    style="display: grid; grid-template-columns: repeat(auto-fill, minmax(400px, 1fr)); gap: 1.5rem; margin-top: 2rem;">
+                </div>
+                <button class="portal-btn primary" style="width: 100%; margin-top: 2rem;"
+                    onclick="addItem('navigation')">+ Add Nav Entry</button>
+            </div>
+        </div>
+
+        <div id="blog" class="tab-content" style="display:none">
+            <div class="portal-card">
+                <div class="portal-title">Blog <span>Management</span></div>
+                <div id="blog-list" style="margin-top: 2rem;"></div>
+                <button class="portal-btn primary" style="width: 100%; margin-top: 2rem;" onclick="addItem('blog')">+
+                    Draft New Article</button>
+            </div>
+        </div>
+
+        <div id="languages" class="tab-content" style="display:none">
+            <div id="lang-hubs"></div>
+        </div>
+
+        <div id="resources" class="tab-content" style="display:none">
+            <div id="res-hubs"></div>
+        </div>
+
+        <div id="social" class="tab-content" style="display:none">
+            <div class="portal-card">
+                <div class="portal-title">Social <span>Connectivity</span></div>
+                <div id="social-list" style="margin-top: 2rem;"></div>
+                <button class="portal-btn primary" style="width: 100%; margin-top: 2rem;" onclick="addItem('social')">+
+                    Add Social Profile</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Asset Manager Tooltip/Section -->
+    <div
+        style="position: fixed; bottom: 2rem; right: 2rem; z-index: 50; display: flex; flex-direction: column; gap: 1rem; align-items: flex-end;">
+        <div id="asset-preview" class="portal-card"
+            style="display:none; width: 300px; padding: 1.5rem; margin: 0; box-shadow: 0 10px 40px rgba(0,0,0,0.5);">
+            <div class="portal-title" style="font-size: 1rem;">Asset <span>Scanner</span></div>
+            <p id="asset-name" style="font-size: 0.8rem; margin: 10px 0; color: var(--portal-accent);"></p>
+            <div id="asset-data"
+                style="max-height: 150px; overflow: hidden; border-radius: 8px; border: 1px solid #333;"></div>
+            <p style="font-size: 0.7rem; color: #555; margin-top: 10px;">Select asset to generate path mapping.</p>
+        </div>
+        <label class="portal-btn primary"
+            style="box-shadow: 0 4px 20px var(--portal-glow); padding: 1rem 2rem; border-radius: 100px;">
+            <span>📸 Process PC Asset</span>
+            <input type="file" id="asset-uploader" style="display:none" onchange="processAsset(this)">
+        </label>
+    </div>
+
+    <!-- Editor UI -->
+    <div id="editorModal">
+        <div class="modal-body">
+            <div class="portal-header">
+                <div class="portal-title">Article <span>Workspace</span>: <span id="currentEditingFile"
+                        style="color:#fff; margin-left:10px;"></span></div>
+                <div style="display: flex; gap: 10px;">
+                    <button class="portal-btn" onclick="closeEditor()">Discard Changes</button>
+                    <button class="portal-btn primary" onclick="finalizeEdit()">Commit to Codebase</button>
+                </div>
+            </div>
+            <textarea id="markdownEditor"></textarea>
+        </div>
+    </div>
+
+    <script src="../js/markdown-loader.js"></script>
+    <script>
+        let db = {};
+        let easyMDE;
+        let editingPostIndex = -1;
+
+        async function init() {
+            MarkdownLoader.loadSiteHeader();
+            db.config = await (await fetch('../content/config.json')).json();
+            db.posts = await (await fetch('../content/blog/posts.json')).json();
+            db.nim = await (await fetch('../content/db/nim.json')).json();
+            db.python = await (await fetch('../content/db/python.json')).json();
+            db.js = await (await fetch('../content/db/js.json')).json();
+            db.cheatsheets = await (await fetch('../content/db/cheatsheets.json')).json();
+            db.apis = await (await fetch('../content/db/apis.json')).json();
+            db.security = await (await fetch('../content/db/security.json')).json();
+            db.snippets = await (await fetch('../content/db/snippets.json')).json();
+
+            easyMDE = new EasyMDE({
+                element: document.getElementById('markdownEditor'),
+                theme: "default dark",
+                spellChecker: false,
+                status: false,
+                autoDownloadFontAwesome: true
+            });
+
+            renderAll();
+        }
+
+        function showTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(t => t.style.display = 'none');
+            document.querySelectorAll('.tab-trigger').forEach(b => b.classList.remove('active'));
+            document.getElementById(tabId).style.display = 'block';
+            event.target.classList.add('active');
+        }
+
+        function renderAll() {
+            renderNavigation();
+            renderBlogs();
+            renderLanguageHubs();
+            renderResourceHubs();
+            renderSocial();
+        }
+
+        function renderNavigation() {
+            const el = document.getElementById('navigation-list');
+            el.innerHTML = db.config.navigation.map((n, i) => `
+                <div class="portal-card" style="padding: 1rem; margin: 0;">
+                    <div class="field-group">
+                        <label class="field-label">Label</label>
+                        <input class="portal-input" value="${n.label}" onchange="db.config.navigation[${i}].label=this.value">
+                    </div>
+                    <div class="field-group">
+                        <label class="field-label">Route</label>
+                        <input class="portal-input" value="${n.url}" onchange="db.config.navigation[${i}].url=this.value">
+                    </div>
+                    <button class="portal-btn danger" style="width:100%" onclick="db.config.navigation.splice(${i},1); renderNavigation()">Remove Link</button>
+                </div>
+            `).join('');
+        }
+
+        function renderBlogs() {
+            const el = document.getElementById('blog-list');
+            el.innerHTML = db.posts.map((p, i) => `
+                <div class="portal-card">
+                    <div style="display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+                        <input class="portal-input" placeholder="Title" value="${p.title}" onchange="db.posts[${i}].title=this.value">
+                        <input class="portal-input" placeholder="File" value="${p.file}" onchange="db.posts[${i}].file=this.value">
+                        <input class="portal-input" type="date" value="${p.date}" onchange="db.posts[${i}].date=this.value">
+                        <div class="portal-input" style="display:flex; align-items:center; gap:8px; background:transparent; border:none;">
+                            <input type="checkbox" ${p.featured ? 'checked' : ''} onchange="db.posts[${i}].featured=this.checked">
+                            <span style="font-size:0.7rem; font-weight:700;">FEATURED</span>
+                        </div>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr 1.5fr; gap: 1rem; margin-bottom: 1rem;">
+                        <select class="portal-input" onchange="db.posts[${i}].category=this.value">
+                            <option value="Editorial" ${p.category === 'Editorial' ? 'selected' : ''}>Editorial</option>
+                            <option value="Tutorial" ${p.category === 'Tutorial' ? 'selected' : ''}>Tutorial</option>
+                            <option value="Guide" ${p.category === 'Guide' ? 'selected' : ''}>Guide</option>
+                            <option value="News" ${p.category === 'News' ? 'selected' : ''}>News</option>
+                            <option value="Sponsored" ${p.category === 'Sponsored' ? 'selected' : ''}>Sponsored</option>
+                        </select>
+                        <input class="portal-input" placeholder="Reading Time" value="${p.readingTime || ''}" onchange="db.posts[${i}].readingTime=this.value">
+                        <input class="portal-input" placeholder="Banner Path" value="${p.banner}" onchange="db.posts[${i}].banner=this.value">
+                    </div>
+                    <div style="display: grid; grid-template-columns: 1.5fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+                        <input class="portal-input" placeholder="Snippet" value="${p.snippet}" onchange="db.posts[${i}].snippet=this.value">
+                        <input class="portal-input" placeholder="Author Name" value="${p.author?.name || ''}" onchange="db.posts[${i}].author=db.posts[${i}].author||{}; db.posts[${i}].author.name=this.value">
+                    </div>
+                    <div style="display:flex; gap: 10px;">
+                        <button class="portal-btn primary" onclick="openEditor(${i})">Edit Markdown Content</button>
+                        <button class="portal-btn danger" onclick="db.posts.splice(${i},1); renderBlogs()">Delete Entry</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        async function openEditor(idx) {
+            editingPostIndex = idx;
+            const file = db.posts[idx].file;
+            document.getElementById('currentEditingFile').textContent = `content/blog/${file}`;
+            document.getElementById('editorModal').style.display = 'flex';
+
+            try {
+                const resp = await fetch(`../content/blog/${file}`);
+                if (!resp.ok) throw new Error("Not found");
+                const text = await resp.text();
+                easyMDE.value(text);
+            } catch (e) {
+                easyMDE.value(`# ${db.posts[idx].title}\n\nStart writing your amazing technical content here...`);
+            }
+        }
+
+        function closeEditor() {
+            document.getElementById('editorModal').style.display = 'none';
+        }
+
+        function finalizeEdit() {
+            const content = easyMDE.value();
+            const file = db.posts[editingPostIndex].file;
+
+            // Generate a download for the .md file
+            const blob = new Blob([content], { type: 'text/markdown' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = file;
+            a.click();
+
+            alert(`Draft of ${file} generated. As your AI developer, I can help you record this change permanently.`);
+            closeEditor();
+        }
+
+        function renderLanguageHubs() {
+            const el = document.getElementById('lang-hubs');
+            el.innerHTML = ['nim', 'python', 'js'].map(lang => `
+                <div class="portal-card">
+                    <div class="portal-title">${lang.toUpperCase()} <span>Management</span></div>
+                    <div class="field-group" style="margin-top:2rem;">
+                        <label class="field-label">${lang} Hub Title</label>
+                        <input class="portal-input" value="${db[lang].title}" onchange="db['${lang}'].title=this.value">
+                    </div>
+                    <button class="portal-btn" style="width:100%" onclick="alert('Metadata updated locally.')">Update ${lang} Hub Config</button>
+                </div>
+            `).join('');
+        }
+
+        function renderResourceHubs() {
+            const el = document.getElementById('res-hubs');
+            el.innerHTML = ['cheatsheets', 'apis', 'security', 'snippets'].map(type => `
+                <div class="portal-card">
+                    <div class="portal-title">${type.toUpperCase()} <span>Database</span></div>
+                    <p style="color:#555; font-size:0.8rem; margin:10px 0;">Currently managing ${db[type].length} records.</p>
+                    <button class="portal-btn primary" onclick="download('${type}.json', db.${type})">Download ${type}.json</button>
+                </div>
+            `).join('');
+        }
+
+        function renderSocial() {
+            const el = document.getElementById('social-list');
+            el.innerHTML = db.config.social.map((s, i) => `
+                <div class="portal-card" style="padding: 1rem; margin: 0;">
+                    <input class="portal-input" value="${s.label}" onchange="db.config.social[${i}].label=this.value">
+                    <input class="portal-input" value="${s.url}" onchange="db.config.social[${i}].url=this.value">
+                    <button class="portal-btn danger" style="width:100%; margin-top:10px;" onclick="db.config.social.splice(${i},1); renderSocial()">Delete</button>
+                </div>
+            `).join('');
+        }
+
+        function processAsset(input) {
+            const file = input.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                document.getElementById('asset-preview').style.display = 'block';
+                document.getElementById('asset-name').textContent = `Resolved: ${file.name}`;
+                if (file.type.startsWith('image/')) {
+                    document.getElementById('asset-data').innerHTML = `<img src="${e.target.result}" style="width:100%">`;
+                } else {
+                    document.getElementById('asset-data').innerHTML = `<div style="padding:2rem; text-align:center;">📦 ${file.type}</div>`;
+                }
+                alert(`Asset tracked. You can now reference this as 'img/${file.name}' in your blogs.`);
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function download(filename, data) {
+            const blob = new Blob([JSON.stringify(data, null, 4)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            a.click();
+        }
+
+        function saveAll() {
+            download('config.json', db.config);
+            download('posts.json', db.posts);
+            alert("Local configurations synced. Please replace original files to apply changes.");
+        }
+
+        function addItem(type) {
+            if (type === 'navigation') db.config.navigation.push({ label: 'New Link', url: '#' });
+            if (type === 'blog') db.posts.unshift({ title: 'Untitled Post', date: new Date().toISOString().split('T')[0], banner: '../img/logo.png', snippet: 'Draft...', file: 'post.md' });
+            if (type === 'social') db.config.social.push({ label: 'New', url: '#', icon: 'link' });
+            renderAll();
+        }
+
+        init();
+    </script>
+</body>
+
+</html>
