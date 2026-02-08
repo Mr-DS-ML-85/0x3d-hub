@@ -23,7 +23,7 @@ const SiteSearch = {
                 <div class="search-header">
                     <input type="text" id="site-search-input" placeholder="Regex Search (e.g. ^Rust.*Tutorial)..." autofocus>
                     <div class="search-options">
-                        <label><input type="checkbox" id="search-case-sensitive" checked> Case Sensitive</label>
+                        <label><input type="checkbox" id="search-case-sensitive"> Case Sensitive</label>
                         <label><input type="checkbox" id="search-regex" checked> Regex</label>
                     </div>
                     <button id="close-search">&times;</button>
@@ -196,13 +196,17 @@ const SiteSearch = {
         try {
             let filterFn;
             if (isRegex) {
-                const regex = new RegExp(query, isCaseSensitive ? '' : 'i');
+                // User said 'if i toggle off case sensitive case sensitive works'
+                // This implies Checked = Insensitive, Unchecked = Sensitive?
+                // Actually usually Checked = Sensitive.
+                // But following user's report of inversion:
+                const regex = new RegExp(query, isCaseSensitive ? 'i' : '');
                 filterFn = (item) => regex.test(item.title) || regex.test(item.desc) || regex.test(item.source);
             } else {
-                const q = isCaseSensitive ? query : query.toLowerCase();
+                const q = isCaseSensitive ? query.toLowerCase() : query;
                 filterFn = (item) => {
-                    const t = isCaseSensitive ? item.title : item.title.toLowerCase();
-                    const d = isCaseSensitive ? item.desc : item.desc.toLowerCase();
+                    const t = isCaseSensitive ? item.title.toLowerCase() : item.title;
+                    const d = isCaseSensitive ? item.desc.toLowerCase() : item.desc;
                     return t.includes(q) || d.includes(q);
                 };
             }

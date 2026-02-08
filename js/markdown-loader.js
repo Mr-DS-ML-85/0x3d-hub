@@ -42,9 +42,13 @@ const MarkdownLoader = {
             .replace(/^# (.*$)/gim, '<h1>$1</h1>')
             // Blockquotes
             .replace(/^\> (.*$)/gim, '<blockquote>$1</blockquote>')
-            // Bold/Italic
-            .replace(/\*\*(.*)\*\*/gim, '<b>$1</b>')
-            .replace(/\*(.*)\*/gim, '<i>$1</i>')
+            // Horizontal Rules
+            .replace(/^---$/gim, '<hr class="post-divider">')
+            // Bold/Italic (Non-greedy)
+            .replace(/\*\*(.*?)\*\*/gim, '<b>$1</b>')
+            .replace(/\*(.*?)\*/gim, '<i>$1</i>')
+            // Lists (Simple unordered)
+            .replace(/^[\*\-]\s+(.*)$/gim, '<li>$1</li>')
 
             // Link Handling (The Order Matters!)
             .replace(/\[(.*?)\]\((.*?)\)(?:\{(.*?)\})?/gim, (match, text, url, attributes) => {
@@ -99,16 +103,31 @@ const MarkdownLoader = {
                 return `<img alt='${alt}' src='${finalUrl}' style='max-width:100%; border-radius:8px;' />`;
             });
 
-        // 3. Newlines to Paragraphs (Simple)
+        // 3. Newlines to Paragraphs & List wrapping
+        let inList = false;
         html = html.split('\n').map(line => {
             line = line.trim();
-            if (!line) return '';
+            if (!line) {
+                if (inList) { inList = false; return '</ul>'; }
+                return '';
+            }
+
+            // Handle list items
+            if (line.startsWith('<li>')) {
+                if (!inList) { inList = true; return '<ul>' + line; }
+                return line;
+            } else if (inList) {
+                inList = false;
+                line = '</ul>' + line;
+            }
+
             // Don't wrap Block elements in <p>
-            if (line.match(/^<(div|img|h1|h2|h3|blockquote|ul|li|p|a class='download-btn')/i)) {
+            if (line.match(/^<(div|img|h1|h2|h3|blockquote|ul|li|p|hr|a class='download-btn')/i)) {
                 return line;
             }
             return `<p>${line}</p>`;
         }).join('\n');
+        if (inList) html += '</ul>';
 
         // 4. Final Layout
         let output = '<div class="blog-post">';
@@ -433,23 +452,23 @@ const MarkdownLoader = {
             const data = this.parseMarkdownDB(text);
 
             let html = `
-                <section class="hero" style="padding: 5rem 2rem 3rem;">
+                <section class="hero-hub">
                     <h1>${data.title}</h1>
                     <p>${data.description}</p>
                 </section>
-                <div class="resource-sections" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 2rem; padding: 2rem;">
+                <div class="resource-sections">
             `;
 
             if (data.sections && Array.isArray(data.sections)) {
                 data.sections.forEach(section => {
                     html += `
-                        <div class="resource-section glass-blog-card" style="padding: 2rem;">
-                            <h2 style="color: var(--accent-color); margin-top: 0; font-size: 1.5rem; border-bottom: 1px solid var(--glass-border); padding-bottom: 1rem; margin-bottom: 1.5rem;">${section.name}</h2>
-                            <ul class="resource-list" style="list-style: none; padding: 0;">
+                        <div class="resource-section glass-blog-card">
+                            <h2 class="section-title">${section.name}</h2>
+                            <ul class="resource-list">
                                 ${section.items.map(item => `
-                                    <li style="margin-bottom: 1rem; line-height: 1.4;">
-                                        <a href="${item.url}" target="_blank" style="display: block; font-weight: 700; color: #fff; margin-bottom: 4px;">${item.name}</a>
-                                        <span style="color: var(--text-muted); font-size: 0.9rem;">${item.description}</span>
+                                    <li>
+                                        <a href="${item.url}" target="_blank" class="resource-link">${item.name}</a>
+                                        <span class="resource-desc">${item.description}</span>
                                     </li>
                                 `).join('')}
                             </ul>

@@ -145,6 +145,30 @@ nav a.active {
     font-weight: 500;
 }
 
+/* Language Hub Hero Variant */
+.hero-hub {
+    text-align: center;
+    padding: 6rem 1rem 4rem;
+    background: radial-gradient(circle at top, rgba(59, 130, 246, 0.15) 0%, transparent 70%);
+}
+
+.hero-hub h1 {
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+    background: linear-gradient(135deg, var(--accent-color), #fff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 0 20px rgba(88, 166, 255, 0.4));
+}
+
+.hero-hub p {
+    font-size: 1.2rem;
+    color: var(--text-muted);
+    max-width: 800px;
+    margin: 0 auto;
+}
+
 /* Cards Grid */
 .grid {
     display: grid;
@@ -275,6 +299,23 @@ nav a.active {
     color: inherit;
 }
 
+/* Glassmorphic Card */
+.glass-blog-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4), inset 0 0 20px rgba(255, 255, 255, 0.05);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass-blog-card:hover {
+    transform: translateY(-8px);
+    border-color: var(--accent-color);
+    box-shadow: 0 15px 35px -10px var(--accent-glow);
+}
+
 /* Knowledge Hub: Magazine Layout */
 .hub-magazine {
     display: flex;
@@ -377,8 +418,12 @@ nav a.active {
     flex-grow: 1;
 }
 
-/* Metadata & Badges */
-.badge {
+/* Metadata & Badges - Scoped to Cards */
+/* Badges for Cards (Index/Hubs) */
+.hero-image .badge,
+.card-image .badge,
+.hub-card .badge,
+.hero-card .badge {
     position: absolute;
     top: 15px;
     padding: 4px 12px;
@@ -390,13 +435,19 @@ nav a.active {
     z-index: 2;
 }
 
-.featured-badge {
+.hero-image .featured-badge,
+.card-image .featured-badge,
+.hub-card .featured-badge,
+.hero-card .featured-badge {
     left: 15px;
     background: var(--accent-gradient);
     color: white;
 }
 
-.category-badge {
+.hero-image .category-badge,
+.card-image .category-badge,
+.hub-card .category-badge,
+.hero-card .category-badge {
     right: 15px;
     background: rgba(0, 243, 255, 0.2);
     border: 1px solid var(--accent-color);
@@ -471,8 +522,42 @@ nav a.active {
 
 .post-header-visual {
     text-align: center;
-    padding: 6rem 1rem 4rem;
-    background: radial-gradient(circle at top, rgba(59, 130, 246, 0.1) 0%, transparent 70%);
+    padding: 8rem 1rem 4rem;
+    background: radial-gradient(circle at top, rgba(59, 130, 246, 0.15) 0%, transparent 70%);
+}
+
+.badge-row {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+/* Badges for Individual Posts (Centered) */
+.badge-row .category-badge,
+.badge-row .badge {
+    background: rgba(59, 130, 246, 0.15);
+    color: var(--accent-color);
+    padding: 6px 16px;
+    border-radius: 99px;
+    font-weight: 700;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    border: 1px solid rgba(59, 130, 246, 0.3);
+    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.2);
+    position: relative;
+    top: 0;
+    right: 0;
+    left: 0;
+}
+
+.post-divider {
+    border: none;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--glass-border), transparent);
+    margin: 4rem auto;
+    width: 60%;
 }
 
 .post-header-visual h1 {
@@ -672,21 +757,41 @@ nav a.active {
 
 /* Resource Sections & Lists Improvements */
 .resource-sections {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    gap: 2rem;
+    column-count: 3;
+    column-gap: 2rem;
     padding: 2rem;
     max-width: 1400px;
     margin: 0 auto;
 }
 
-.resource-section {
-    transition: transform 0.3s ease, border-color 0.3s ease;
+@media (max-width: 1100px) {
+    .resource-sections {
+        column-count: 2;
+    }
 }
 
-.resource-section:hover {
-    transform: translateY(-5px);
-    border-color: var(--accent-color);
+@media (max-width: 768px) {
+    .resource-sections {
+        column-count: 1;
+    }
+}
+
+.resource-section {
+    break-inside: avoid;
+    margin-bottom: 2rem;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.section-title {
+    color: var(--accent-color);
+    margin-top: 0;
+    font-size: 1.5rem;
+    border-bottom: 1px solid var(--glass-border);
+    padding-bottom: 1rem;
+    margin-bottom: 1.5rem;
+    font-weight: 700;
 }
 
 .resource-list {
@@ -700,16 +805,16 @@ nav a.active {
     padding-left: 0;
 }
 
-.resource-list li a {
-    display: inline-block;
+.resource-link {
+    display: block !important;
     font-size: 1.05rem;
     font-weight: 700;
-    color: #fff;
-    margin-bottom: 2px;
+    color: #fff !important;
+    margin-bottom: 4px;
     letter-spacing: -0.2px;
 }
 
-.resource-list li span {
+.resource-desc {
     display: block;
     color: var(--text-muted);
     font-size: 0.9rem;
