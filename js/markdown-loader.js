@@ -12,13 +12,13 @@ const MarkdownLoader = {
             window.location.replace(newUrl);
         }
     },
-    render: function (text) {
+    render: function (text, baseDir = '') {
         let meta = {
             banner: null,
             date: null
         };
 
-        // Extract Metadata
+        // 1. Extract Metadata & Remove from content flow
         let lines = text.split('\n');
         let contentLines = [];
 
@@ -32,85 +32,110 @@ const MarkdownLoader = {
             }
         });
 
-        let contentText = contentLines.join('\n');
+        const fullText = contentLines.join('\n');
 
-        // Basic Markdown to HTML conversion
-        let html = contentText
+        // 2. Prepare HTML with regex replacements (Inline Handling)
+        let html = fullText
+            // Headers
             .replace(/^### (.*$)/gim, '<h3>$1</h3>')
             .replace(/^## (.*$)/gim, '<h2>$1</h2>')
             .replace(/^# (.*$)/gim, '<h1>$1</h1>')
+            // Blockquotes
             .replace(/^\> (.*$)/gim, '<blockquote>$1</blockquote>')
+            // Bold/Italic
             .replace(/\*\*(.*)\*\*/gim, '<b>$1</b>')
             .replace(/\*(.*)\*/gim, '<i>$1</i>')
-            // Special: Downloads (marked with {download})
-            .replace(/\[(.*?)\]\((.*?)\)\{download\}/gim, "<a href='$2' class='download-btn'><span>&#x1F4E5;</span> $1</a>")
-            // YouTube Embed Fix: Convert watch?v= or youtu.be links to embed format
-            .replace(/\[youtube\]\((.*?)\)/gim, (match, url) => {
-                let videoId = '';
-                if (url.includes('v=')) videoId = url.split('v=')[1].split('&')[0];
-                else if (url.includes('youtu.be/')) videoId = url.split('youtu.be/')[1].split('?')[0];
-                else if (url.includes('embed/')) videoId = url.split('embed/')[1].split('?')[0];
 
-                if (videoId) {
-                    return `<div class="media-container video-wrapper"><iframe src="https://www.youtube.com/embed/${videoId}" frameborder="0" allowfullscreen></iframe></div>`;
+            // Link Handling (The Order Matters!)
+            .replace(/\[(.*?)\]\((.*?)\)(?:\{(.*?)\})?/gim, (match, text, url, attributes) => {
+                const finalUrl = (url.startsWith('http') || url.startsWith('/')) ? url : (baseDir + url);
+
+                // A. Downloads
+                if (attributes && attributes.includes('download')) {
+                    return `<a href='${finalUrl}' class='download-btn' download><span>&#x1F4E5;</span> ${text}</a>`;
                 }
-                return `<a href="${url}">${url}</a>`;
+
+                // B. YouTube / Embeds (Detect by URL)
+                if (url.includes('youtube.com/embed/') || url.includes('youtube.com/watch') || url.includes('youtu.be/')) {
+                    let videoId = '';
+                    if (url.includes('v=')) videoId = url.split('v=')[1].split('&')[0];
+                    else if (url.includes('youtu.be/')) videoId = url.split('youtu.be/')[1].split('?')[0];
+                    else if (url.includes('embed/')) videoId = url.split('embed/')[1].split('?')[0];
+
+                    if (videoId) {
+                        return `<div class="media-container video-wrapper"><iframe src="https://www.youtube.com/embed/${videoId}" frameborder="0" allowfullscreen></iframe></div>`;
+                    }
+                }
+
+                // C. Audio Files
+                if (url.match(/\.(mp3|wav|ogg)$/i) || url.includes('Audio/')) {
+                    const audioId = `audio-player-${Math.random().toString(36).substr(2, 9)}`;
+                    return `
+                        <div class="custom-audio-player" id="${audioId}">
+                            <button class="audio-play-btn" onclick="MarkdownLoader.toggleAudio('${audioId}')">
+                                <svg viewBox="0 0 24 24" class="play-icon"><path d="M8 5v14l11-7z"/></svg>
+                            </button>
+                            <div class="audio-info-container">
+                                <span class="audio-title">${text}</span>
+                                <div class="audio-progress-container" onclick="MarkdownLoader.seekAudio(event, '${audioId}')">
+                                    <div class="audio-progress-bar"></div>
+                                </div>
+                                <div class="audio-time-row">
+                                    <span class="current-time">0:00</span>
+                                    <span class="duration">0:00</span>
+                                </div>
+                            </div>
+                            <audio src="${finalUrl}" style="display:none;"></audio>
+                        </div>`;
+                }
+
+                // D. Standard Link
+                return `<a href='${finalUrl}'>${text}</a>`;
             })
-            // Regular links and images
-            .replace(/!\[(.*?)\]\((.*?)\)/gim, "<img alt='$1' src='$2' style='max-width:100%; border-radius:8px;' />")
-            .replace(/\[(.*?)\]\((.*?)\)/gim, "<a href='$2'>$1</a>")
-            .replace(/\n$/gim, '<br />');
 
-        // Detect Media, Extract it, and Wrap
-        let audioElements = [];
-        let videoElements = [];
-        let otherLines = [];
+            // Images
+            .replace(/!\[(.*?)\]\((.*?)\)/gim, (match, alt, url) => {
+                const finalUrl = (url.startsWith('http') || url.startsWith('/')) ? url : (baseDir + url);
+                return `<img alt='${alt}' src='${finalUrl}' style='max-width:100%; border-radius:8px;' />`;
+            });
 
-        html.split('\n').filter(line => line.trim() !== '').forEach(line => {
-            let handled = false;
-            // Audio files in links
-            if (line.includes('.mp3') || line.includes('.wav') || line.includes('.ogg')) {
-                const urlMatch = line.match(/href='(.*?)'/);
-                if (urlMatch) {
-                    audioElements.push(`<div class="media-container"><audio controls src="${urlMatch[1]}"></audio></div>`);
-                    handled = true;
-                }
+        // 3. Newlines to Paragraphs (Simple)
+        html = html.split('\n').map(line => {
+            line = line.trim();
+            if (!line) return '';
+            // Don't wrap Block elements in <p>
+            if (line.match(/^<(div|img|h1|h2|h3|blockquote|ul|li|p|a class='download-btn')/i)) {
+                return line;
             }
-            // Youtube / Video embeds
-            if (!handled && (line.includes('youtube.com/embed') || line.includes('player.vimeo.com'))) {
-                const urlMatch = line.match(/href='(.*?)'/);
-                if (urlMatch) {
-                    videoElements.push(`<div class="media-container video-wrapper"><iframe src="${urlMatch[1]}" frameborder="0" allowfullscreen></iframe></div>`);
-                    handled = true;
-                }
-            }
+            return `<p>${line}</p>`;
+        }).join('\n');
 
-            if (!handled) {
-                if (!line.startsWith('<')) otherLines.push(`<p>${line}</p>`);
-                else otherLines.push(line);
-            }
-        });
-
-        // Assemble with strict ordering: Banner -> Date -> Audio -> Video -> Content
+        // 4. Final Layout
         let output = '<div class="blog-post">';
+
+        // Inject Banner
         if (meta.banner) {
-            const isSubDir = window.location.pathname.includes('/blog/');
-            const bannerPath = (meta.banner.startsWith('http') || meta.banner.startsWith('/'))
-                ? meta.banner
-                : (isSubDir ? '../' + meta.banner : meta.banner);
+            // Robust Path Resolution for Banner
+            const isSubDir = window.location.pathname.includes('/blog/') || window.location.pathname.includes('/resources/');
+            let bannerPath = meta.banner;
+
+            // If path is relative and we are in a subdir, prepend ../
+            if (!bannerPath.startsWith('http') && !bannerPath.startsWith('/')) {
+                if (isSubDir) {
+                    bannerPath = '../' + bannerPath;
+                }
+            }
             output += `<img src="${bannerPath}" class="blog-banner" alt="Post Banner">`;
         }
-        if (meta.date) output += `<div class="blog-date">${meta.date}</div>`;
 
-        // Media sections
-        if (audioElements.length > 0) output += audioElements.join('');
-        if (videoElements.length > 0) output += videoElements.join('');
+        // Inject Date
+        if (meta.date) {
+            output += `<div class="blog-date">${meta.date}</div>`;
+        }
 
-        // Post body
-        output += otherLines.join('\n');
+        output += html;
         output += '</div>';
 
-        return output;
         return output;
     },
 
@@ -224,6 +249,7 @@ const MarkdownLoader = {
                         <div class="card-content">
                             <div class="meta-row mini">
                                 <span>${post.date}</span>
+                                ${post.lastUpdated ? `<span class="dot">•</span><span class="updated-date">UPD: ${post.lastUpdated}</span>` : ''}
                                 <span class="dot">•</span>
                                 <span>${post.readingTime || 'Varies'}</span>
                             </div>
@@ -290,7 +316,7 @@ const MarkdownLoader = {
                         </div>
                     </aside>
                     <article class="post-content-container">
-                        ${this.render(markdown)}
+                        ${this.render(markdown, '../content/blog/')}
                     </article>
                 </div>
             `;
@@ -537,6 +563,80 @@ const MarkdownLoader = {
         } catch (e) {
             console.error('Failed to load social links:', e);
         }
+    },
+
+    toggleAudio: function (playerId) {
+        const player = document.getElementById(playerId);
+        const audio = player.querySelector('audio');
+        const btn = player.querySelector('.audio-play-btn');
+        const playIcon = '<svg viewBox="0 0 24 24" class="play-icon"><path d="M8 5v14l11-7z"/></svg>';
+        const pauseIcon = '<svg viewBox="0 0 24 24" class="pause-icon"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>';
+
+        if (audio.paused) {
+            // Pause all other audios first
+            document.querySelectorAll('audio').forEach(a => {
+                if (a !== audio) {
+                    a.pause();
+                    const otherPlayer = a.closest('.custom-audio-player');
+                    if (otherPlayer) {
+                        otherPlayer.classList.remove('audio-playing');
+                        otherPlayer.querySelector('.audio-play-btn').innerHTML = playIcon;
+                    }
+                }
+            });
+
+            audio.play();
+            player.classList.add('audio-playing');
+            btn.innerHTML = pauseIcon;
+        } else {
+            audio.pause();
+            player.classList.remove('audio-playing');
+            btn.innerHTML = playIcon;
+        }
+
+        // Initialize progress events once
+        if (!audio.dataset.initialized) {
+            audio.ontimeupdate = () => this.updateAudioProgress(playerId);
+            audio.onended = () => {
+                player.classList.remove('audio-playing');
+                btn.innerHTML = playIcon;
+                player.querySelector('.audio-progress-bar').style.width = '0%';
+                player.querySelector('.current-time').textContent = '0:00';
+            };
+            audio.onloadedmetadata = () => {
+                player.querySelector('.duration').textContent = this.formatTime(audio.duration);
+            };
+            audio.dataset.initialized = 'true';
+        }
+    },
+
+    updateAudioProgress: function (playerId) {
+        const player = document.getElementById(playerId);
+        const audio = player.querySelector('audio');
+        const progressBar = player.querySelector('.audio-progress-bar');
+        const currentTimeText = player.querySelector('.current-time');
+
+        if (audio.duration) {
+            const percent = (audio.currentTime / audio.duration) * 100;
+            progressBar.style.width = percent + '%';
+            currentTimeText.textContent = this.formatTime(audio.currentTime);
+        }
+    },
+
+    seekAudio: function (event, playerId) {
+        const player = document.getElementById(playerId);
+        const audio = player.querySelector('audio');
+        const container = player.querySelector('.audio-progress-container');
+
+        const rect = container.getBoundingClientRect();
+        const pos = (event.clientX - rect.left) / rect.width;
+        audio.currentTime = pos * audio.duration;
+    },
+
+    formatTime: function (seconds) {
+        const min = Math.floor(seconds / 60);
+        const sec = Math.floor(seconds % 60);
+        return `${min}:${sec < 10 ? '0' : ''}${sec}`;
     }
 };
 

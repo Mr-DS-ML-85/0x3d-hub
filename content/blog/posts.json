@@ -25,7 +25,8 @@
             "name": "0x3d Team",
             "avatar": "../img/logo.png"
         },
-        "readingTime": "4 min read"
+        "readingTime": "4 min read",
+        "lastUpdated": "2026-02-08"
     },
     {
         "title": "The Power of Modern Nim",
@@ -53,6 +54,4 @@
         },
         "readingTime": "6 min read"
     }
-   
-    
 ]

@@ -5,6 +5,8 @@ BANNER: img/logo.png
 
 **Date:** February 8, 2026
 
+[Audio-Blog](Audio/announcement.wav)
+
 We’re excited to announce the launch of **0x3d Hub**, a free online technical knowledge hub created for developers, learners, and curious minds across the tech world.
 
 At 0x3d Hub, our mission is simple:

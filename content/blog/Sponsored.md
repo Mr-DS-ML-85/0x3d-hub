@@ -1,4 +1,4 @@
-BANNER: img/logo.png
+BANNER: ../img/logo.png
 DATE: 2026-02-07
 
 # Welcome to the New 0x3d Technical Blog!
@@ -10,7 +10,7 @@ Below is a demonstration of our new features.
 ## Audio Spotlight
 Listen to our latest technical podcast episode where we discuss the future of systems programming.
 
-[Technical Podcast Ep 1](Audio/announcement.wav)
+[Audio-Blog](Audio/announcement.wav)
 
 ## Video Deep Dive
 Check out this architectural breakdown of the new 0x3d Hub infrastructure.
