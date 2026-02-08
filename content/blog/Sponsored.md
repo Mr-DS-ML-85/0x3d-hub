@@ -10,7 +10,7 @@ Below is a demonstration of our new features.
 ## Audio Spotlight
 Listen to our latest technical podcast episode where we discuss the future of systems programming.
 
-[Technical Podcast Ep 1](https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3)
+[Technical Podcast Ep 1](Audio/announcement.wav)
 
 ## Video Deep Dive
 Check out this architectural breakdown of the new 0x3d Hub infrastructure.
