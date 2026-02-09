@@ -1,6 +1,14 @@
 # Ai Ml Resources
 
 
+## 🤝✨🛠️ Featured
+
+- [✨ Skylos](https://github.com/duriantaco/skylos) - High-precision Python SAST & Dead Code Remover. Unused functions secrets, and security flaws with hybrid static analysis + local LLM agents
+
+- [🎉 Big News: 0x3d Hub Is Proudly Sponsored by Skylos 🚀](https://0x3d-hub.devforge.qzz.io/blog/post.html?f=Sponsored.md)
+
+- [🔍 Beginner’s Guide to Skylos — Python Static Analysis & Dead Code Cleanup](https://0x3d-hub.devforge.qzz.io/blog/post.html?f=skylos.md)
+
 ## Core & Systems
 
 - [Microsoft Ai Introduces Code Researcher A Deep Research Agent For Large Systems Code And Commit History](https://www.marktechpost.com/2025/06/14/microsoft-ai-introduces-code-researcher-a-deep-research-agent-for-large-systems-code-and-commit-history/)

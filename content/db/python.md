@@ -3,6 +3,10 @@
 A curated list of awesome Python frameworks, libraries,
                     software and resources.
 
+## 🤝✨❤️ Featured (Sponsor)
+
+- [🔍 Beginner’s Guide to Skylos — Python Static Analysis & Dead Code Cleanup](https://0x3d-hub.devforge.qzz.io/blog/post.html?f=skylos.md)
+
 ## Admin Panels
 
 Libraries for administrative interfaces.
@@ -359,6 +363,11 @@ Frameworks and libraries for Distributed Computing.
 - [faust](https://github.com/robinhood/faust) - 
     - [faust](https://github.com/robinhood/faust) - A stream processing library, porting the ideas from  to Python.
     - [streamparse](https://github.com/Parsely/streamparse) - Run Python code against real-time streams of data via .
+
+## 🤝✨❤️ Featured (Sponsor)
+
+- [Skylos](https://github.com/duriantaco/skylos) - Python SAST, Dead Code Detection & Security Auditor
+
 
 ## Distribution
 
