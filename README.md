@@ -25,8 +25,8 @@ graph TB
     subgraph "User Interface Layer"
         INDEX[index.html<br/>Homepage]
         BLOG[blog/index.html<br/>Blog Hub]
-        LANG[Language Hubs<br/>python|nim|js|rust|go|c-cpp]
-        RES[Resource Pages<br/>cheatsheets|apis|ai-ml|etc.]
+        LANG[Language Hubs<br/>python, nim, js, rust, go, c-cpp]
+        RES[Resource Pages<br/>cheatsheets, apis, ai-ml, etc.]
         ADMIN[admin/index.html<br/>CMS Dashboard]
     end
 
