@@ -27,6 +27,35 @@
         },
         "readingTime": "6 min read"
     },
+    {
+        "title": "Why Beginner Calculator Can’t Do 24 + 99 * 5 (And Why That’s Not a Bug)",
+        "date": "2026-02-10",
+        "banner": "../img/cal.png",
+        "snippet": "Most beginner calculators—mine included—can add, subtract, multiply, divide, and even exponentiate. They ask for two numbers, pick an operator, and return a result. Simple. Predictable. Honest.So here’s the uncomfortable question I ran into",
+        "file": "why_my_beginner_calculator_cant_do_24_99_5_and_why_thats_not_a_bug.md",
+        "category": "Article",
+        "author": {
+            "name": "Irfan Mahir",
+            "avatar": "../img/230993697_129660846035467_8398238612047467841_n.jpg"
+        },
+        "readingTime": "4 min read"
+    },
+
+    {
+        "title": "The Dangerous Habit of Letting AI Debug Your Code",
+        "date": "2026-02-10",
+        "banner": "../img/dan.png",
+        "snippet": "AI can fix bugs fast. Sometimes too fast.Paste an error, get a patch, move on. The program runs, the red text disappears, and everything feels solved.But something important just didn’t happen.You didn’t debug.",
+        "file": "the_dangerous_habit_of_letting_ai_debug_your_code.md",
+        "category": "Article",
+        "author": {
+            "name": "Irfan Mahir",
+            "avatar": "../img/230993697_129660846035467_8398238612047467841_n.jpg"
+        },
+        "readingTime": "6 min read"
+    },
+
+
 
     {
         "title": "Welcome to the New 0x3d Hub Portal!",
@@ -69,4 +98,5 @@
         },
         "readingTime": "6 min read"
     }
+
 ]
