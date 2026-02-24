@@ -6,3 +6,8 @@ scripts/*.py
 scripts/cheatsheets/
 !scripts/cleanup_links.py
 !scripts/categorize_vault.py
+!scripts/bulk_download_cheatsheets.py
+!scripts/enrich_cheatsheets.py
+!scripts/extract_cheatsheets.py
+!scripts/process_links_v3.py
+!scripts/re_scrape_resources.py
