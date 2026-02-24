@@ -10,7 +10,7 @@
 
 - **Multi-Hub Architecture**: Dedicated sections for Python, JavaScript, C/C++, Rust, Go, and Nim
 - **Specialized Resource Centers**: Curated repositories for AI & ML, Cybersecurity, Design, DevOps, and more
-- **Master Vault**: 2,200+ categorized technical links, cheatsheets, and web tools
+- **Master Vault**: 1000+ categorized technical links, cheatsheets, and web tools
 - **Regex-Powered Search**: Site-wide search with case-sensitivity and regex support (`Ctrl + /`)
 - **Lightweight CMS**: Client-side admin dashboard for managing markdown databases
 - **Glassmorphic UI**: Modern, translucent design with smooth animations
